@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="uk">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/css/style.css" />
+		<title>Список ігор</title>
+	</head>
+	<body>
+		<h1>Список ігор</h1>
+		<div>
+			<ul class="GameList">
+				<li th:each="game : ${games}" class="GameItem">
+					<h2 th:text="${game.name}"></h2>
+					<img
+						th:src="${game.imageSrc}"
+						th:alt="${game.name}"
+						class="GameImg"
+					/>
+					<p>Переглядів: <span th:text="${game.views}"></span></p>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,43 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 20px;
+	background-color: #f5f5f5;
+}
+
+h1 {
+	text-align: center;
+}
+
+.GameList {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	list-style-type: none;
+	padding: 0;
+}
+
+.GameItem {
+	width: calc(25% - 20px);
+	margin: 10px;
+	background-color: white;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	padding: 10px;
+	text-align: center;
+}
+
+.GameImg {
+	max-width: 100%;
+	height: auto;
+	border-radius: 5px;
+}
+.GameItem:hover {
+	transform: scale(1.05);
+}
+
+.GameDescription {
+	text-align: center;
+	margin-top: 10px;
+}
