@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Список ігор</title>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		<link th:href="@{/css/core.css}" rel="stylesheet" media="screen" />
+		<link rel="stylesheet" href="css/navbar.css" />
+		<link rel="stylesheet" href="css/footer.css" />
+		<link rel="stylesheet" href="css/root.css" />
+		<link rel="stylesheet" href="css/home.css" />
+	</head>
+	<body>
+		<!-- Заголовок з фрагмента -->
+		<div th:replace="fragments/navbar :: navbar"></div>
+
+		<div class="container">
+			<h1>Список ігор</h1>
+			<div>
+				<ul class="GameList">
+					<li th:each="game : ${games}" class="GameItem">
+						<h2 th:text="${game.name}"></h2>
+						<img
+							th:src="${game.imageSrc}"
+							th:alt="${game.name}"
+							class="GameImg"
+						/>
+						<p>Переглядів: <span th:text="${game.views}"></span></p>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<footer th:replace="fragments/footer :: footer" class="footer"></footer>
+	</body>
+</html>

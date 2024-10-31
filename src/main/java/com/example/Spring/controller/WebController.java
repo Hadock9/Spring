@@ -12,6 +12,7 @@ import com.example.Spring.service.GameService;
 
 @Controller
 public class WebController {
+
     private final GameService gameService;
 
     @Autowired
@@ -20,9 +21,16 @@ public class WebController {
     }
 
     @GetMapping("/")
-    public String getHomePage(Model model) {
+    public String getHome(Model model) {
+        model.addAttribute("title", "Головна");
+        return "home";  
+    }
+
+    @GetMapping("/games")
+    public String getGames(Model model) {
         List<Game> games = gameService.getAllGames();
         model.addAttribute("games", games);
-        return "home";   
+        model.addAttribute("title", "Список Ігор");
+        return "games"; 
     }
 }

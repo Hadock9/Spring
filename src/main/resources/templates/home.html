@@ -1,25 +1,23 @@
+<!-- src/main/resources/templates/home.html -->
 <!DOCTYPE html>
-<html lang="uk">
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="/css/style.css" />
-		<title>Список ігор</title>
+		<title>Головна</title>
+		<link rel="stylesheet" href="css/navbar.css" />
+		<link rel="stylesheet" href="css/footer.css" />
+		<link rel="stylesheet" href="css/home.css" />
+		<link rel="stylesheet" href="css/root.css" />
 	</head>
 	<body>
-		<h1>Список ігор</h1>
-		<div>
-			<ul class="GameList">
-				<li th:each="game : ${games}" class="GameItem">
-					<h2 th:text="${game.name}"></h2>
-					<img
-						th:src="${game.imageSrc}"
-						th:alt="${game.name}"
-						class="GameImg"
-					/>
-					<p>Переглядів: <span th:text="${game.views}"></span></p>
-				</li>
-			</ul>
+		<header th:replace="fragments/navbar :: navbar"></header>
+
+		<div class="main-container">
+			<div class="content" style="margin-left: 270px; padding: 20px">
+				<h1>Ласкаво просимо на сайт!</h1>
+				<p>Тут ви можете знайти багато цікавого контенту.</p>
+			</div>
+			<div th:replace="fragments/footer :: footer"></div>
 		</div>
 	</body>
 </html>
