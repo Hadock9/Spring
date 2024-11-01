@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Список матчів</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+		/>
+		<link rel="stylesheet" href="/css/matches.css" />
+
+		<script>
+			function deleteMatch(matchId) {
+				if (confirm('Ви впевнені, що хочете видалити цей матч?')) {
+				 
+					fetch(`/api/matches/match/${matchId}`, {
+						method: 'DELETE'
+					})
+					.then(response => {
+						if (response.ok) {
+						 
+							location.reload();  
+						} else {
+							alert('Не вдалося видалити матч.');
+						}
+					})
+					.catch(error => {
+						console.error('Помилка:', error);
+					});
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="mt-5">Список матчів</h1>
+			<div th:if="${matches.size() == 0}" class="alert alert-warning">
+				Немає результатів для відображення.
+			</div>
+			<div th:if="${matches.size() > 0}">
+				<div class="MatchesContainer">
+					<div th:each="match : ${matches}" class="MatchesBlock">
+						<div class="MatchesBlockInfo">
+							<div class="MatchesBlockTeam">
+								<div class="MatchesBlockCountry">
+									<img
+										draggable="false"
+										class="MatchesBlockImgCountry"
+										th:src="@{/{country}(country=${match.team1.teamCountry})}"
+										alt=""
+									/>
+								</div>
+								<img
+									draggable="false"
+									class="MatchesBlockImgLogo"
+									th:src="@{/{logo}(logo=${match.team1.teamLogo})}"
+									alt=""
+								/>
+								<div class="MatchesBlockCoef MatchesBlockTeam1Coef">
+									<p th:text="${match.team1Coef}"></p>
+								</div>
+							</div>
+							<div class="MatchesBlockCenter">
+								<p class="MatchesBlockVsDateTime" th:text="${match.vsDate}"></p>
+								<p class="MatchesBlockVs">Vs</p>
+								<p class="MatchesBlockPlace" th:text="${match.place}"></p>
+							</div>
+							<div class="MatchesBlockTeam2">
+								<div class="MatchesBlockCountry">
+									<img
+										draggable="false"
+										class="MatchesBlockImgCountry"
+										th:src="@{/{country}(country=${match.team2.teamCountry})}"
+										alt=""
+									/>
+								</div>
+								<img
+									draggable="false"
+									class="MatchesBlockImgLogo"
+									th:src="@{ /{logo}(logo=${match.team2.teamLogo})}"
+									alt=""
+								/>
+								<div class="MatchesBlockCoef MatchesBlockTeam2Coef">
+									<p th:text="${match.team2Coef}"></p>
+								</div>
+							</div>
+						</div>
+						<div class="MatchesBlockSide">
+							<button
+								class="btn btn-danger"
+						 
+								title="Видалити матч"
+							>
+								&times;  
+							</button>
+						</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

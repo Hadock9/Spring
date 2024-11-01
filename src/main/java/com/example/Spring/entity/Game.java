@@ -22,7 +22,7 @@ public class Game {
 
     private int views;
 
-    // Геттери та сеттери
+     
     public Integer getId() {
         return id;
     }

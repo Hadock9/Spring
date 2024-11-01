@@ -1,0 +1,87 @@
+.MatchesContainer {
+	margin-bottom: 20px;
+}
+
+.MatchesBlock {
+	width: 100%;
+	height: auto;
+	background-color: #393e46;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	cursor: pointer;
+	border-radius: 10px;
+	padding: 10px;
+	color: white;
+}
+
+.MatchesBlockInfo {
+	width: 70%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.MatchesBlockTeam {
+	display: flex;
+	align-items: center;
+}
+.MatchesBlockTeam2 {
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
+}
+.MatchesBlockCountry {
+	margin: 0 10px;
+}
+
+.MatchesBlockCoef {
+	border-radius: 50%;
+	background-color: #5f646d;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+}
+
+.MatchesBlockCenter {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.MatchesBlockVsDateTime {
+	text-align: center;
+}
+
+.MatchesBlockVs {
+	font-weight: 700;
+}
+
+.MatchesBlockSide {
+	width: 30%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.MatchesSideBlockImg1,
+.MatchesSideBlockImg {
+	width: 20%;
+}
+
+.MatchesSideImg {
+	width: auto;
+	height: 28px;
+}
+.MatchesBlockImgCountry,
+.MatchesBlockImgLogo {
+	width: 40px;
+	height: auto;
+}
+
+.MatchesBlockImg {
+	width: 30px;
+	height: auto;
+}
