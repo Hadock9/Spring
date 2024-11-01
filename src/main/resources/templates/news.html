@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Новини</title>
+		<script src="http://localhost:35729/livereload.js"></script>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/news.css}" />
+	</head>
+	<body>
+		<h1>Список новин</h1>
+
+		<div th:if="${failedToFetch}" class="error-message">
+			<p>Не вдалося завантажити новини. Спробуйте ще раз пізніше.</p>
+		</div>
+
+		<div th:unless="${failedToFetch}">
+			<div
+				th:each="news : ${newsList}"
+				class="news-item"
+				th:id="'news-' + ${news.id}"
+			>
+				<a th:href="@{news/{id}(id=${news.id})}">
+					<img th:src="${news.imageUrl}" class="news-image" alt="Новина" />
+				</a>
+
+				<div class="news-content">
+					<div class="news-header">
+						<span th:text="${news.game.name}" class="game-name">Назва гри</span>
+						<span class="separator"></span>
+						<p class="publish-date" th:text="${news.publishDate}">Дата</p>
+						<span class="views-icon">👁️</span>
+						<p class="view-count" th:text="${news.views}">0</p>
+					</div>
+					<a th:href="@{news/{id}(id=${news.id})}">
+						<div class="news-details">
+							<div class="news-title" th:text="${news.title}">
+								Заголовок новини
+							</div>
+							<p class="news-description" th:text="${news.description}">Опис</p>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

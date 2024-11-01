@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Comments Fragment</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+	</head>
+	<body>
+		<div th:fragment="comments">
+			<div class="comments">
+				<div class="comments-header">
+					<h1 class="comments-title">
+						Коментарі <span th:text="${#lists.size(news.comments)}">0</span>
+					</h1>
+				</div>
+				<div class="comment-form">
+					<div class="user-picture">
+						<img src="/img/User-Default.svg" class="user-image" alt="" />
+					</div>
+					<div class="comment-input">
+						<form
+							class="comment-form-content"
+							th:action="@{/api/news/{id}/comments(id=${news.id})}"
+							method="post"
+						>
+							<textarea
+								id="textarea"
+								name="content"
+								class="comment-textarea"
+							></textarea>
+							<button type="submit" class="comment-submit-button">
+								Submit
+							</button>
+						</form>
+					</div>
+				</div>
+
+				<div
+					th:each="comment : ${news.comments}"
+					class="comment-block"
+					th:key="${comment.id}"
+				>
+					<div class="comment-picture">
+						<img th:src="@{${comment.picture}}" class="comment-image" alt="" />
+					</div>
+					<div class="comment-content">
+						<div class="comment-header">
+							<p class="comment-author" th:text="${comment.author}">Автор</p>
+							<p
+								class="comment-date"
+								th:text="${#dates.format(comment.publishDate, 'dd-MM-yyyy HH:mm')}"
+							>
+								Дата
+							</p>
+						</div>
+						<div class="comment-body">
+							<p class="comment-text" th:text="${comment.content}">Коментар</p>
+						</div>
+						<div class="comment-likes-dislikes">
+							<p>
+								<strong>Лайки:</strong>
+								<span th:text="${comment.likes}">0</span>
+							</p>
+							<p>
+								<strong>Дизлайки:</strong>
+								<span th:text="${comment.dislikes}">0</span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

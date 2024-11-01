@@ -1,0 +1,79 @@
+h1 {
+	color: #333;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.error-message {
+	color: red;
+	text-align: center;
+	margin: 20px 0;
+}
+
+.news-item {
+	display: flex;
+	height: 120px;
+	margin: 5px 0;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	padding: 10px;
+}
+
+.news-image {
+	width: 210px;
+	height: 120px;
+	border-radius: 8px;
+}
+
+.news-content {
+	margin-left: 20px;
+	flex-grow: 1;
+}
+
+.news-header {
+	display: flex;
+	align-items: center;
+}
+
+.game-name {
+	font-weight: bold;
+}
+
+.separator {
+	margin: 0 15px;
+	width: 1px;
+	height: 16px;
+	background-color: #ccc;
+}
+
+.publish-date {
+	color: gray;
+	font-size: 12px;
+}
+
+.views-icon {
+	color: gray;
+	margin-left: 5px;
+}
+
+.view-count {
+	color: gray;
+	font-size: 12px;
+	margin-left: 5px;
+}
+
+.news-details {
+	margin-top: 10px;
+}
+
+.news-title {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.news-description {
+	margin-top: 4px;
+	font-size: 14px;
+	color: #555;
+}

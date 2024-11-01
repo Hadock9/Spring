@@ -10,19 +10,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.Spring.entity.Game;
 import com.example.Spring.entity.Match;
+import com.example.Spring.entity.News;
+import com.example.Spring.model.QuestionsList;
 import com.example.Spring.service.GameService;
-import com.example.Spring.service.MatchService;  
+import com.example.Spring.service.MatchService;
+import com.example.Spring.service.NewsService;
 
 @Controller
 public class WebController {
 
     private final GameService gameService;
-    private final MatchService matchService;  
+    private final MatchService matchService;
+    private final NewsService newsService;
 
     @Autowired
-    public WebController(GameService gameService, MatchService matchService) {
+    public WebController(GameService gameService, MatchService matchService, NewsService newsService) {
         this.gameService = gameService;
         this.matchService = matchService; 
+        this.newsService = newsService;
     }
 
     @GetMapping("/")
@@ -46,10 +51,36 @@ public class WebController {
         model.addAttribute("title", "Список Матчів"); 
         return "matches";  
     }
+
     @GetMapping("/matches/{id}")
     public String getMatchesByGameId(@PathVariable Long id, Model model) {
         List<Match> matches = matchService.findByGameId(id);  
         model.addAttribute("matches", matches);
-    return "matches";  
+        return "matches";  
+    }
+
+    @GetMapping("/news")
+    public String getNews(Model model) {
+        List<News> newsList = newsService.getAllNews();   
+        model.addAttribute("newsList", newsList);  
+        model.addAttribute("title", "Список Новин");   
+        return "news";   
+    }
+
+    
+    @GetMapping("/news/{id}")
+    public String getNewsById(@PathVariable Long id, Model model) {
+        News news = newsService.getNewsById(id);
+        
+        try {
+            QuestionsList questionsList = newsService.parseQuestionsFromContent(news.getContent());
+            model.addAttribute("news", news);
+            model.addAttribute("questionsList", questionsList);
+        } catch (Exception e) {
+            // Обробка виключення 
+            e.printStackTrace();
+        }
+
+        return "newsDetail";  
     }
 }

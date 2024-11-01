@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title th:text="${news.title}">Новина</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/newsDetail.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/comment.css}" />
+	</head>
+	<body>
+		<div class="main">
+			<h1 class="news-title" th:text="${news.title}">Заголовок новини</h1>
+			<div class="news-info">
+				<p>
+					<strong>Автор:</strong> <span th:text="${news.author}">Автор</span>
+				</p>
+				<p>
+					<strong>Дата:</strong>
+					<span th:text="${news.publishDate}">Дата</span>
+				</p>
+				<p>
+					<strong>Переглядів:</strong> <span th:text="${news.views}">0</span>
+				</p>
+				<p><strong>Лайки:</strong> <span th:text="${news.likes}">0</span></p>
+			</div>
+			<div th:if="${news == null}">
+				<p>Новина не знайдена.</p>
+			</div>
+
+			<div th:unless="${news == null}">
+				<img th:src="${news.imageUrl}" alt="Новина" class="news-image" />
+				<p th:text="${news.description}">Опис новини</p>
+
+				<div class="news-meta">
+					<a th:href="@{/games}" class="game-link" th:text="${news.game.name}"
+						>Ігра</a
+					>
+					<span class="separator"></span>
+					<div class="news-info">
+						<p class="publish-date" th:text="${news.publishDate}">Дата</p>
+
+						<p th:text="${news.views}">0</p>
+						<p>переглядів</p>
+					</div>
+				</div>
+
+				<h2 class="details-title">Запитання та Відповіді</h2>
+				<div
+					th:each="question : ${questionsList.questions}"
+					class="question-answer"
+				>
+					<h3 class="question" th:text="${question.question}"></h3>
+					<p class="answer" th:text="${question.answer}"></p>
+				</div>
+				<div>
+					<div th:replace="fragments/commentsFragment :: comments"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
