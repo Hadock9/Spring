@@ -1,0 +1,14 @@
+package com.example.Spring.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.example.Spring.entity.User;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, String> {
+	Optional<User> findByEmail(String email);  // Пошук користувача по email
+	boolean existsById(String email);  // Перевірка наявності користувача по email
+}
