@@ -4,16 +4,18 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: #f9f9f9;
+	color: #333;
 }
 
 h1.bets-title {
 	text-align: center;
 	margin-bottom: 20px;
-	color: #333;
-	font-size: 24px;
+	color: #007bff;
+	font-size: 28px;
+	font-weight: bold;
 }
 
-/* Контейнер ставок */
+/* Основний контейнер */
 .main-container {
 	padding: 40px 20px;
 }
@@ -57,10 +59,110 @@ h1.bets-title {
 
 .bets-table tbody tr:hover {
 	background-color: #e9ecef;
+	cursor: pointer;
 }
 
 .bets-table td {
 	font-size: 14px;
+}
+
+/* Кнопки */
+button {
+	border: none;
+	padding: 10px 15px;
+	border-radius: 5px;
+	font-size: 14px;
+	cursor: pointer;
+	transition: background-color 0.3s, transform 0.2s;
+}
+
+button:active {
+	transform: scale(0.95);
+}
+
+.edit-button {
+	background-color: #007bff;
+	color: #fff;
+	margin-right: 5px;
+}
+
+.edit-button:hover {
+	background-color: #0056b3;
+}
+
+.delete-button {
+	background-color: #dc3545;
+	color: #fff;
+}
+
+.delete-button:hover {
+	background-color: #a71d2a;
+}
+
+/* Форма ставок */
+.bet-form {
+	margin-top: 30px;
+	background-color: #f8f9fa;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bet-form h2 {
+	margin-bottom: 20px;
+	color: #007bff;
+	text-align: center;
+	font-size: 22px;
+}
+
+.bet-form label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.bet-form input,
+.bet-form select,
+.bet-form button {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+.bet-form input:focus,
+.bet-form select:focus {
+	outline: none;
+	border-color: #007bff;
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.bet-form button {
+	background-color: #007bff;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s, transform 0.2s;
+}
+
+.bet-form button:hover {
+	background-color: #0056b3;
+}
+
+.bet-form button:active {
+	transform: scale(0.98);
+}
+
+/* Повідомлення про відсутність ставок */
+.no-bets-message {
+	text-align: center;
+	font-size: 18px;
+	color: #6c757d;
+	margin-top: 20px;
 }
 
 /* Адаптивність */
@@ -74,4 +176,77 @@ h1.bets-title {
 		font-size: 12px;
 		padding: 10px;
 	}
+
+	.bet-form input,
+	.bet-form select,
+	.bet-form button {
+		font-size: 12px;
+		padding: 8px;
+	}
+}
+
+@media (max-width: 480px) {
+	h1.bets-title {
+		font-size: 20px;
+	}
+
+	.bet-form h2 {
+		font-size: 18px;
+	}
+
+	.bets-table {
+		font-size: 10px;
+	}
+}
+.forms-container {
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+}
+
+.bet-form {
+	flex: 1;
+	background-color: #f9f9f9;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.bet-form h2 {
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.form-group {
+	margin-bottom: 15px;
+}
+
+.form-group label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+	width: 100%;
+	padding: 8px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.submit-button {
+	width: 100%;
+	padding: 10px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.submit-button:hover {
+	background-color: #0056b3;
 }

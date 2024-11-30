@@ -35,6 +35,7 @@
 									<th>Статус</th>
 									<th>ID користувача</th>
 									<th>ID команди</th>
+									<th>Дії</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -47,14 +48,234 @@
 									<td th:text="${bet.status}">Статус</td>
 									<td th:text="${bet.userId}">ID користувача</td>
 									<td th:text="${bet.teamId}">ID команди</td>
+									<td>
+										<button
+											class="edit-button"
+											th:onclick="'fillEditForm(' + ${bet.id} + ')'"
+										>
+											Редагувати
+										</button>
+										<button
+											class="delete-button"
+											th:onclick="'deleteBet(' + ${bet.id} + ')'"
+										>
+											Видалити
+										</button>
+									</td>
 								</tr>
 							</tbody>
 						</table>
+					</div>
+
+					<div class="forms-container">
+						<!-- Форма створення ставки -->
+						<div class="bet-form">
+							<h2>Створити ставку</h2>
+							<form id="createBetForm">
+								<div class="form-group">
+									<label for="matchId">Матч:</label>
+									<input type="number" id="matchId" name="matchId" required />
+								</div>
+								<div class="form-group">
+									<label for="amount">Сума:</label>
+									<input
+										type="number"
+										id="amount"
+										name="amount"
+										step="0.01"
+										required
+									/>
+								</div>
+								<div class="form-group">
+									<label for="coefficient">Коефіцієнт:</label>
+									<input
+										type="number"
+										id="coefficient"
+										name="coefficient"
+										step="0.01"
+										required
+									/>
+								</div>
+								<div class="form-group">
+									<label for="stakeTime">Час ставки:</label>
+									<input
+										type="datetime-local"
+										id="stakeTime"
+										name="stakeTime"
+										required
+									/>
+								</div>
+								<div class="form-group">
+									<label for="status">Статус:</label>
+									<select id="status" name="status" required>
+										<option value="pending">Pending</option>
+										<option value="won">Won</option>
+										<option value="lost">Lost</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="userId">ID користувача:</label>
+									<input type="number" id="userId" name="userId" required />
+								</div>
+								<div class="form-group">
+									<label for="teamId">ID команди:</label>
+									<input type="number" id="teamId" name="teamId" required />
+								</div>
+								<button
+									type="button"
+									class="submit-button"
+									onclick="createBet()"
+								>
+									Створити
+								</button>
+							</form>
+						</div>
+
+						<!-- Форма редагування ставки -->
+						<div class="bet-form" id="editFormContainer" style="display: none">
+							<h2>Редагувати ставку</h2>
+							<form id="editBetForm">
+								<input type="hidden" id="editBetId" name="id" />
+								<div class="form-group">
+									<label for="editMatchId">Матч:</label>
+									<input
+										type="number"
+										id="editMatchId"
+										name="matchId"
+										required
+									/>
+								</div>
+								<div class="form-group">
+									<label for="editAmount">Сума:</label>
+									<input
+										type="number"
+										id="editAmount"
+										name="amount"
+										step="0.01"
+										required
+									/>
+								</div>
+								<div class="form-group">
+									<label for="editCoefficient">Коефіцієнт:</label>
+									<input
+										type="number"
+										id="editCoefficient"
+										name="coefficient"
+										step="0.01"
+										required
+									/>
+								</div>
+								<div class="form-group">
+									<label for="editStakeTime">Час ставки:</label>
+									<input
+										type="datetime-local"
+										id="editStakeTime"
+										name="stakeTime"
+										required
+									/>
+								</div>
+								<div class="form-group">
+									<label for="editStatus">Статус:</label>
+									<select id="editStatus" name="status" required>
+										<option value="pending">Pending</option>
+										<option value="won">Won</option>
+										<option value="lost">Lost</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="editUserId">ID користувача:</label>
+									<input type="number" id="editUserId" name="userId" required />
+								</div>
+								<div class="form-group">
+									<label for="editTeamId">ID команди:</label>
+									<input type="number" id="editTeamId" name="teamId" required />
+								</div>
+								<button
+									type="button"
+									class="submit-button"
+									onclick="updateBet()"
+								>
+									Оновити
+								</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
 		</main>
 
 		<footer th:replace="fragments/footer :: footer"></footer>
+
+		<script>
+			// Функція створення ставки
+			function createBet() {
+				const form = document.getElementById('createBetForm')
+				const formData = new FormData(form)
+				const jsonData = Object.fromEntries(formData.entries())
+
+				fetch('/api/bets', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(jsonData),
+				}).then(response => {
+					if (response.ok) {
+						alert('Ставка створена успішно')
+						location.reload()
+					} else {
+						alert('Помилка створення ставки')
+					}
+				})
+			}
+
+			// Функція видалення ставки
+			function deleteBet(betId) {
+				if (confirm('Ви впевнені, що хочете видалити цю ставку?')) {
+					fetch(`/api/bets/${betId}`, { method: 'DELETE' }).then(response => {
+						if (response.ok) {
+							alert('Ставка видалена успішно')
+							location.reload()
+						} else {
+							alert('Помилка видалення ставки')
+						}
+					})
+				}
+			}
+
+			function fillEditForm(betId) {
+				// Заповнення форми для редагування
+				fetch(`/api/bets/${betId}`)
+					.then(response => response.json())
+					.then(bet => {
+						document.getElementById('editFormContainer').style.display = 'block'
+						document.getElementById('editBetId').value = bet.id
+						document.getElementById('editMatchId').value = bet.matchId
+						document.getElementById('editAmount').value = bet.amount
+						document.getElementById('editCoefficient').value = bet.coefficient
+						document.getElementById('editStakeTime').value = bet.stakeTime
+						document.getElementById('editStatus').value = bet.status
+						document.getElementById('editUserId').value = bet.userId
+						document.getElementById('editTeamId').value = bet.teamId
+					})
+			}
+
+			function updateBet() {
+				const form = document.getElementById('editBetForm')
+				const formData = new FormData(form)
+				const jsonData = Object.fromEntries(formData.entries())
+
+				fetch(`/api/bets/${jsonData.id}`, {
+					method: 'PUT',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(jsonData),
+				}).then(response => {
+					if (response.ok) {
+						alert('Ставка оновлена успішно')
+						location.reload()
+					} else {
+						alert('Помилка оновлення ставки')
+					}
+				})
+			}
+		</script>
 	</body>
 </html>
