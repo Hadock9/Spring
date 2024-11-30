@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Ставки на матч</title>
+		<link rel="stylesheet" th:href="@{/css/navbar.css}" />
+		<link rel="stylesheet" th:href="@{/css/footer.css}" />
+		<link rel="stylesheet" th:href="@{/css/root.css}" />
+		<link rel="stylesheet" th:href="@{/css/bets.css}" />
+	</head>
+	<body>
+		<header th:replace="fragments/navbar :: navbar"></header>
+
+		<main class="main-container">
+			<div class="wrapper">
+				<h1 class="bets-title">Ставки на матч</h1>
+
+				<div class="bets-container">
+					<!-- Перевірка наявності ставок -->
+					<div th:if="${#lists.isEmpty(bets)}" class="no-bets-message">
+						<p>Наразі немає доступних ставок.</p>
+					</div>
+
+					<!-- Таблиця ставок -->
+					<div th:if="${!#lists.isEmpty(bets)}">
+						<table class="bets-table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Матч</th>
+									<th>Сума</th>
+									<th>Коефіцієнт</th>
+									<th>Час ставки</th>
+									<th>Статус</th>
+									<th>ID користувача</th>
+									<th>ID команди</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="bet : ${bets}">
+									<td th:text="${bet.id}">ID</td>
+									<td th:text="${bet.matchId}">Матч</td>
+									<td th:text="${bet.amount}">Сума</td>
+									<td th:text="${bet.coefficient}">Коефіцієнт</td>
+									<td th:text="${bet.stakeTime}">Час ставки</td>
+									<td th:text="${bet.status}">Статус</td>
+									<td th:text="${bet.userId}">ID користувача</td>
+									<td th:text="${bet.teamId}">ID команди</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<footer th:replace="fragments/footer :: footer"></footer>
+	</body>
+</html>

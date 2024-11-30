@@ -1,87 +1,102 @@
+/* Основні стилі для списку матчів */
 .MatchesContainer {
-	margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 }
 
 .MatchesBlock {
-	width: 100%;
-	height: auto;
-	background-color: #393e46;
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 10px;
-	cursor: pointer;
-	border-radius: 10px;
-	padding: 10px;
-	color: white;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 15px;
+	background-color: #fff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transition: background-color 0.3s ease;
+}
+
+.MatchesBlock:hover {
+	background-color: #f9f9f9;
 }
 
 .MatchesBlockInfo {
-	width: 70%;
 	display: flex;
+	width: 100%;
 	justify-content: space-between;
 }
 
 .MatchesBlockTeam {
 	display: flex;
 	align-items: center;
-}
-.MatchesBlockTeam2 {
-	display: flex;
-	align-items: center;
-	flex-direction: row-reverse;
-}
-.MatchesBlockCountry {
-	margin: 0 10px;
+	width: 40%;
 }
 
-.MatchesBlockCoef {
-	border-radius: 50%;
-	background-color: #5f646d;
-	width: 40px;
-	height: 40px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: white;
+.MatchesBlockCountry img,
+.MatchesBlockImgLogo {
+	max-width: 50px;
+	margin-right: 10px;
+}
+
+.MatchesBlockTeam1Coef,
+.MatchesBlockTeam2Coef {
+	font-weight: bold;
+	font-size: 1.2rem;
 }
 
 .MatchesBlockCenter {
+	text-align: center;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-}
-
-.MatchesBlockVsDateTime {
-	text-align: center;
+	justify-content: center;
+	width: 40%;
 }
 
 .MatchesBlockVs {
-	font-weight: 700;
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin: 5px 0;
 }
 
 .MatchesBlockSide {
-	width: 30%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 }
 
-.MatchesSideBlockImg1,
-.MatchesSideBlockImg {
-	width: 20%;
+.MatchesLink {
+	text-decoration: none;
+	color: inherit;
+	width: 50%;
 }
 
-.MatchesSideImg {
-	width: auto;
-	height: 28px;
-}
-.MatchesBlockImgCountry,
-.MatchesBlockImgLogo {
-	width: 40px;
-	height: auto;
+.btn-danger {
+	background-color: red;
+	color: white;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: background-color 0.3s;
 }
 
-.MatchesBlockImg {
-	width: 30px;
-	height: auto;
+.btn-danger:hover {
+	background-color: darkred;
+}
+
+.MatchesBlockPlace {
+	font-size: 1rem;
+	color: #555;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+	.MatchesBlockInfo {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.MatchesBlock {
+		flex-direction: column;
+	}
 }

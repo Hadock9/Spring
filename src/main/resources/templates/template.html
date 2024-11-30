@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Головна</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/root.css}" />
+	</head>
+	<body>
+		<header th:replace="fragments/navbar :: navbar"></header>
+
+		<div class="main-container">
+			<div class="wrapper"></div>
+			<div th:replace="fragments/footer :: footer"></div>
+		</div>
+	</body>
+</html>

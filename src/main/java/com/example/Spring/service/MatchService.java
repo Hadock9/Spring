@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.Spring.entity.Match;
 import com.example.Spring.repository.MatchRepository;
- 
 
 @Service
 public class MatchService {
@@ -27,5 +26,8 @@ public class MatchService {
         return matchRepository.findAll();
     }
 
-	 
+    public Match getMatchById(int matchId) {
+        return matchRepository.findById((long) matchId)
+            .orElseThrow(() -> new RuntimeException("Match not found with id: " + matchId));
+    }
 }

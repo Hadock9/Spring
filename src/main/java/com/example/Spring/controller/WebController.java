@@ -8,10 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.example.Spring.entity.Bet;
 import com.example.Spring.entity.Game;
 import com.example.Spring.entity.Match;
 import com.example.Spring.entity.News;
 import com.example.Spring.model.QuestionsList;
+import com.example.Spring.service.BetService;
 import com.example.Spring.service.GameService;
 import com.example.Spring.service.MatchService;
 import com.example.Spring.service.NewsService;
@@ -19,14 +21,17 @@ import com.example.Spring.service.NewsService;
 @Controller
 public class WebController {
 
+    private final BetService betService;
     private final GameService gameService;
     private final MatchService matchService;
     private final NewsService newsService;
 
+    // Конструктор із усіма залежностями
     @Autowired
-    public WebController(GameService gameService, MatchService matchService, NewsService newsService) {
+    public WebController(BetService betService, GameService gameService, MatchService matchService, NewsService newsService) {
+        this.betService = betService;
         this.gameService = gameService;
-        this.matchService = matchService; 
+        this.matchService = matchService;
         this.newsService = newsService;
     }
 
@@ -56,7 +61,16 @@ public class WebController {
     public String getMatchesByGameId(@PathVariable Long id, Model model) {
         List<Match> matches = matchService.findByGameId(id);  
         model.addAttribute("matches", matches);
+        model.addAttribute("title", "Матчі за Грою");
         return "matches";  
+    }
+
+    @GetMapping("/match/{matchId}")
+    public String getMatchDetails(@PathVariable int matchId, Model model) {
+        Match match = matchService.getMatchById(matchId);
+        model.addAttribute("match", match);  
+        model.addAttribute("title", "Деталі Матчу");
+        return "matchDetails";  
     }
 
     @GetMapping("/news")
@@ -67,7 +81,6 @@ public class WebController {
         return "news";   
     }
 
-    
     @GetMapping("/news/{id}")
     public String getNewsById(@PathVariable Long id, Model model) {
         News news = newsService.getNewsById(id);
@@ -77,10 +90,18 @@ public class WebController {
             model.addAttribute("news", news);
             model.addAttribute("questionsList", questionsList);
         } catch (Exception e) {
-            // Обробка виключення 
-            e.printStackTrace();
+            e.printStackTrace(); // Обробка виключення
         }
 
+        model.addAttribute("title", "Деталі Новини");
         return "newsDetail";  
+    }
+
+    @GetMapping("/bets")
+    public String showBets(Model model) {
+        List<Bet> bets = betService.getAllBets();  
+        model.addAttribute("bets", bets);
+        model.addAttribute("title", "Список Ставок");
+        return "bets"; 
     }
 }

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Деталі матчу</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/root.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/matchDetails.css}" />
+	</head>
+	<body>
+		<header th:replace="fragments/navbar :: navbar"></header>
+
+		<main class="main-container">
+			<div class="wrapper">
+				<div class="container">
+					<h1 class="mt-5 match-title">Деталі матчу</h1>
+
+					<div class="matches-container">
+						<div class="match-block">
+							<div class="match-info">
+								<!-- Team 1 -->
+								<div class="team">
+									<div class="team-country">
+										<img
+											draggable="false"
+											class="team-flag"
+											th:src="@{/{country}(country=${match.team1.teamCountry})}"
+											alt="Країна команди"
+										/>
+									</div>
+									<img
+										draggable="false"
+										class="team-logo"
+										th:src="@{/{logo}(logo=${match.team1.teamLogo})}"
+										alt="Логотип команди"
+									/>
+									<div class="team-name">
+										<p th:text="${match.team1.teamName}"></p>
+									</div>
+								</div>
+
+								<!-- Match Center -->
+								<div class="match-center">
+									<p class="match-datetime" th:text="${match.vsDate}"></p>
+									<p class="match-vs">Vs</p>
+									<p class="match-place" th:text="${match.place}"></p>
+								</div>
+
+								<!-- Team 2 -->
+								<div class="team">
+									<div class="team-country">
+										<img
+											draggable="false"
+											class="team-flag"
+											th:src="@{/{country}(country=${match.team2.teamCountry})}"
+											alt="Країна команди"
+										/>
+									</div>
+									<img
+										draggable="false"
+										class="team-logo"
+										th:src="@{/{logo}(logo=${match.team2.teamLogo})}"
+										alt="Логотип команди"
+									/>
+									<div class="team-name">
+										<p th:text="${match.team2.teamName}"></p>
+									</div>
+								</div>
+							</div>
+
+							<!-- Score Section -->
+							<div class="match-score">
+								<div class="score team1-score">
+									<p>Score:</p>
+									<span th:text="${match.team1Score}"></span>
+								</div>
+								<div class="score team2-score">
+									<p>Score:</p>
+									<span th:text="${match.team2Score}"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<footer th:replace="fragments/footer :: footer"></footer>
+	</body>
+</html>

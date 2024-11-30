@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>Список ігор</title>
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1, shrink-to-fit=no"
-		/>
-		<link rel="stylesheet" href="css/navbar.css" />
-		<link rel="stylesheet" href="css/footer.css" />
-		<link rel="stylesheet" href="css/root.css" />
-		<link rel="stylesheet" href="css/games.css" />
+		<meta charset="UTF-8" />
+		<title>Головна</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/root.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/games.css}" />
 	</head>
 	<body>
-		<div th:replace="fragments/navbar :: navbar"></div>
+		<header th:replace="fragments/navbar :: navbar"></header>
 
-		<div class="container">
-			<h1>Список ігор</h1>
-			<div>
-				<ul class="GameList">
-					<li th:each="game : ${games}" class="GameItem">
-						<h2 th:text="${game.name}"></h2>
-						<a th:href="@{/matches/{id}(id=${game.id})}">
-							<img
-								th:src="${game.imageSrc}"
-								th:alt="${game.name}"
-								class="GameImg"
-							/>
-						</a>
-						<p>Переглядів: <span th:text="${game.views}"></span></p>
-					</li>
-				</ul>
+		<div class="main-container">
+			<div class="wrapper">
+				<div class="container">
+					<h1>Список ігор</h1>
+					<div>
+						<ul class="GameList">
+							<li th:each="game : ${games}" class="GameItem">
+								<h2 th:text="${game.name}"></h2>
+								<a th:href="@{/matches/{id}(id=${game.id})}">
+									<img
+										th:src="${game.imageSrc}"
+										th:alt="${game.name}"
+										class="GameImg"
+									/>
+								</a>
+								<p>Переглядів: <span th:text="${game.views}"></span></p>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
+			<div th:replace="fragments/footer :: footer"></div>
 		</div>
-
-		<footer th:replace="fragments/footer :: footer" class="footer"></footer>
 	</body>
 </html>

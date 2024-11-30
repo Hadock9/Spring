@@ -23,7 +23,6 @@ public class MatchController {
         return matchService.getAllMatches();
     }
 
-     
     @GetMapping("/{id}")
     public List<Match> getMatchById(@PathVariable Long id) {
         return matchService.findByGameId(id);

@@ -2,46 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Новини</title>
-		<script src="http://localhost:35729/livereload.js"></script>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/news.css}" />
+		<title>Головна</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/root.css}" />
+		<link rel="stylesheet" href="css/news.css" />
 	</head>
 	<body>
-		<h1>Список новин</h1>
+		<header th:replace="fragments/navbar :: navbar"></header>
 
-		<div th:if="${failedToFetch}" class="error-message">
-			<p>Не вдалося завантажити новини. Спробуйте ще раз пізніше.</p>
-		</div>
+		<div class="main-container">
+			<div class="wrapper">
+				<h1>Список новин</h1>
+				<div th:if="${failedToFetch}" class="error-message">
+					<p>Не вдалося завантажити новини. Спробуйте ще раз пізніше.</p>
+				</div>
 
-		<div th:unless="${failedToFetch}">
-			<div
-				th:each="news : ${newsList}"
-				class="news-item"
-				th:id="'news-' + ${news.id}"
-			>
-				<a th:href="@{news/{id}(id=${news.id})}">
-					<img th:src="${news.imageUrl}" class="news-image" alt="Новина" />
-				</a>
+				<div th:unless="${failedToFetch}">
+					<div
+						th:each="news : ${newsList}"
+						class="news-item"
+						th:id="'news-' + ${news.id}"
+					>
+						<a th:href="@{news/{id}(id=${news.id})}">
+							<img th:src="${news.imageUrl}" class="news-image" alt="Новина" />
+						</a>
 
-				<div class="news-content">
-					<div class="news-header">
-						<span th:text="${news.game.name}" class="game-name">Назва гри</span>
-						<span class="separator"></span>
-						<p class="publish-date" th:text="${news.publishDate}">Дата</p>
-						<span class="views-icon">👁️</span>
-						<p class="view-count" th:text="${news.views}">0</p>
-					</div>
-					<a th:href="@{news/{id}(id=${news.id})}">
-						<div class="news-details">
-							<div class="news-title" th:text="${news.title}">
-								Заголовок новини
+						<div class="news-content">
+							<div class="news-header">
+								<span th:text="${news.game.name}" class="game-name"
+									>Назва гри</span
+								>
+								<span class="separator"></span>
+								<p class="publish-date" th:text="${news.publishDate}">Дата</p>
+								<span class="views-icon">👁️</span>
+								<p class="view-count" th:text="${news.views}">0</p>
 							</div>
-							<p class="news-description" th:text="${news.description}">Опис</p>
+							<a th:href="@{news/{id}(id=${news.id})}">
+								<div class="news-details">
+									<div class="news-title" th:text="${news.title}">
+										Заголовок новини
+									</div>
+									<p class="news-description" th:text="${news.description}">
+										Опис
+									</p>
+								</div>
+							</a>
 						</div>
-					</a>
+					</div>
 				</div>
 			</div>
+			<div th:replace="fragments/footer :: footer"></div>
 		</div>
 	</body>
 </html>
