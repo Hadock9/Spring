@@ -1,0 +1,168 @@
+openapi: 3.0.3
+info:
+  title: Betting API
+  description: API for managing sports betting
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /api/bets:
+    get:
+      summary: Get all bets
+      responses:
+        '200':
+          description: List of all bets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bet'
+    post:
+      summary: Create a new bet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BetRequest'
+      responses:
+        '200':
+          description: Bet created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BetPlaced'
+
+  /api/bets/{id}:
+    get:
+      summary: Get bet by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Bet found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bet'
+        '404':
+          description: Bet not found
+
+  /api/bets/{id}/win:
+    put:
+      summary: Mark bet as won
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Bet marked as won
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BetWon'
+        '404':
+          description: Bet not found
+
+  /api/bets/{id}/lose:
+    put:
+      summary: Mark bet as lost
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Bet marked as lost
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BetLost'
+        '404':
+          description: Bet not found
+
+components:
+  schemas:
+    BetRequest:
+      type: object
+      required:
+        - matchId
+        - userId
+        - teamId
+        - amount
+        - coefficient
+      properties:
+        matchId:
+          type: integer
+        userId:
+          type: integer
+        teamId:
+          type: integer
+        amount:
+          type: number
+          format: double
+        coefficient:
+          type: number
+          format: double
+
+    Bet:
+      type: object
+      properties:
+        id:
+          type: integer
+        matchId:
+          type: integer
+        userId:
+          type: integer
+        teamId:
+          type: integer
+        amount:
+          type: number
+          format: double
+        coefficient:
+          type: number
+          format: double
+        status:
+          type: string
+          enum: [PENDING, WON, LOST]
+        stakeTime:
+          type: string
+          format: date-time
+
+    BetPlaced:
+      type: object
+      properties:
+        betId:
+          type: integer
+        userId:
+          type: integer
+        amount:
+          type: number
+          format: double
+
+    BetWon:
+      type: object
+      properties:
+        betId:
+          type: integer
+        winningAmount:
+          type: number
+          format: double
+
+    BetLost:
+      type: object
+      properties:
+        betId:
+          type: integer
